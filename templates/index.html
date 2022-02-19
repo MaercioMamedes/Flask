@@ -1,0 +1,28 @@
+
+{% extends "template.html" %}
+<main>
+        
+    {% block content%}
+
+    <section>
+        <p>Monte sua carteira</p>
+        <a href="/register"><p>cadastrar usuário</p></a>
+    </section>
+
+    <section>
+        <p>Ranking dos jogadores</p>
+            
+        <ol>
+        {% for player in users %}
+            <li>{{player}}</li>
+        {% endfor %}
+        </ol>
+            
+    </section>
+
+    <section>
+       <p>Papeis mais valorizados</p>
+    </section>
+
+    {% endblock %}
+
