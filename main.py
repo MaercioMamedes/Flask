@@ -1,6 +1,7 @@
 from flask import *
 from model.models import *
 from dataBase.conectDataBase import *
+import pandas as pd
 
 app = Flask(__name__)
 lista = ['Maercio', 'Joséas', 'Jamerson', 'Emanoel']
