@@ -11,5 +11,3 @@ def reader_data_base():
     cursor.close()
     conector.close()"""
 
-    print(cursor)
-

@@ -12,10 +12,24 @@ header{
     height: 20%;
     width: 100%;
     background-image: linear-gradient(#007bff, #ffffff);
+    
 }
 
-header h1{
-    margin: 60px;
+.menu{
+
+    width: 100%;
+    margin-right: 10px;
+    position: relative;
+}
+
+.menu ul{
+    position: absolute;
+    background-color: yellow;
+}
+
+.menu li{
+    display: inline-block;
+    padding: 20px;
 }
 
 main{

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,9 +9,30 @@
     <link rel="stylesheet" href="../static/style.css">
     <title>{{title_page}}</title>
 </head>
+
 <body>
     <header>
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <ul id="messages" class="list-unstyled">
+            {% for message in messages %}
+            <li class="alert alert-success">{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {% endwith %}
         <h1>{{title}}</h1>
+
+        <nav class="menu">
+            <ul>
+                <li><a href="/">HOME</a></li>
+                <li><a href="">O JOGO</a></li>
+                <li><a href="{{url_for('register_user')}}">CADASTRO</a></li>
+                <li><a href="{{url_for('login')}}">LOGIN</a></li>
+                <li><a href="{{url_for('logout')}}">LOGOUT</a></li>
+                <li><a href="">CONTATO</a></li>
+            </ul>
+        </nav>
     </header>
 
     {% block content %}{% endblock %}
@@ -19,4 +41,5 @@
         <p>&copy;mamedes01</p>
     </footer>
 </body>
+
 </html>
