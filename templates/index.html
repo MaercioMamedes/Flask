@@ -10,13 +10,30 @@
     </section>
 
     <section>
-        <p>Ranking dos jogadores</p>
-            
-        <ol>
-        {% for player in users %}
-            <li>{{player}}</li>
-        {% endfor %}
-        </ol>
+        <p>Jogadores Cadastrados</p>
+        
+        <table class="table" >
+            <thead class="thead-dark" >
+                <tr>
+                    <th>Nome</th>
+                    <th>email</th>
+                    <th>telefone</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for player in users %}
+                    <tr>
+                        <td>{{player.name}}</td>
+                        <td>{{player.email}}</td>
+                        <td>{{player.cell}}</td>
+                        <td><a href="{{url_for('update_user', id_user=player.id)}}">editar</a>
+                            <a href="{{url_for('delete_user', id_user=player.id)}}">deleter</a></td>
+                    </tr>
+                
+                {% endfor %}
+            </tbody>    
+        </table>
             
     </section>
 

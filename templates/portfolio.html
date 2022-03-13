@@ -2,12 +2,19 @@
 
 {% block content %}
 
-    <form action="/register_portfolio" method="post">
-        <label for="cod">Código do Papel</label>
-        <input type="text" name="ticker" id="cod">
-
-        <input type="submit" value="Enviar">
-
+<div class="container">
+    <div class="page-header">
+        <h1>{{ title }}</h1>
+    </div>
+    <form method="post" action="{{url_for('portfolio_register')}}">
+      <fieldset>
+        <div class="form-group">
+          <label for="nome">Nome da Carteira</label>
+          <input type="text" id="nome" name="nome" class="form-control">
+        </div>
+        <button type="submit" class="btn btn-primary btn-salvar">Salvar</button>
+      </fieldset>
     </form>
+  </div>
 
 {% endblock %}

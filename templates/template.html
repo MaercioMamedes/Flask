@@ -22,7 +22,7 @@
         {% endif %}
         {% endwith %}
         <h1>{{title}}</h1>
-
+    
         <nav class="menu">
             <ul>
                 <li><a href="/">HOME</a></li>
@@ -34,11 +34,12 @@
             </ul>
         </nav>
     </header>
+        <main>
 
-    {% block content %}{% endblock %}
-
+            {% block content %}{% endblock %}
+        </main>
     <footer>
-        <p>&copy;mamedes01</p>
+        <p class="rodape">&copy;mamedes01</p>
     </footer>
 </body>
 
