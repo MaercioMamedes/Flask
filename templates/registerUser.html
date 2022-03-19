@@ -5,8 +5,17 @@
       <div class="page-header">
           <h1>{{ title }}</h1>
       </div>
-      <form method="post" action="/user">
+      <form method="post" action="/user" enctype="multipart/form-data" >
         <fieldset>
+
+          <figure lass="figure-img" >
+            <img class="profile" src="{{url_for('image', file_name='image_default.jpg')}}" alt="" srcset="">
+            <figcaption>
+              <label>
+                <input type="file" name="file" accept=".jpg" >
+              </label>
+            </figcaption>
+          </figure>
 
           <div class="form-group">
             <label for="name">Nome</label>
@@ -25,7 +34,12 @@
 
           <div class="form-group">
             <label for="hash_user">senha</label>
-            <input type="tel" id="hash_user" name="hash_user" class="form-control">
+            <input type="password" id="hash_user" name="hash_user" class="form-control">
+          </div>
+
+          <div class="form-group">
+            <label for="hash_user_confirm">confirme a senha</label>
+            <input type="password" id="hash_user_confirm" name="hash_user_confirm" class="form-control">
           </div>
 
           <button type="submit" class="btn btn-primary btn-salvar">Salvar</button>

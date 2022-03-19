@@ -1,6 +1,7 @@
 from flask import *
 from dao import *
 from flask_mysqldb import MySQL
+import os
 
 app = Flask(__name__)
 app.secret_key = 'alura'
@@ -12,6 +13,7 @@ app.config['MYSQL_USER'] = "root"
 app.config['MYSQL_PASSWORD'] = "123456"
 app.config['MYSQL_DB'] = "GameDataBase"
 app.config['MYSQL_PORT'] = 3306
+app.config['UPLOAD_PATH'] = os.path.dirname(os.path.abspath(__file__)) + '/medias'
 
 db = MySQL(app)
 portfolio_dao = PortfolioDao(db)
@@ -22,6 +24,12 @@ user_dao = UserDao(db)
 def index():
     users_list = user_dao.to_list()
     return render_template('index.html', title='Jogo da Bolsa', title_page='Jogo da Bolsa', users=users_list)
+
+
+@app.route('/adm')
+def adm():
+    users_list = user_dao.to_list()
+    return render_template('adm.html', title='Jogo da Bolsa', title_page='Jogo da Bolsa', users=users_list)
 
 
 @app.route('/portfolio')
@@ -51,12 +59,12 @@ def update_user(id_user):
     return render_template('updateUser.html',
                            title='Editar',
                            title_page='Editar usuário',
-                           user=user_edit)
+                           user=user_edit,
+                           image_profile=f'capa{id_user}.jpg')
 
 
 @app.route('/delete-user/<int:id_user>')
 def delete_user(id_user):
-    print(id_user)
     user_dao.to_delete(id_user)
     return redirect(url_for('index'))
 
@@ -73,8 +81,6 @@ def register_update_user(id_user):
     return redirect(url_for('index'))
 
 
-
-
 @app.route('/user', methods=['POST'])
 def user():
     user_name = request.form['name']
@@ -82,8 +88,17 @@ def user():
     user_cell = request.form['cell']
     user_hash = request.form['hash_user']
     new_user = User(user_name, user_email, user_cell, user_hash)
-    user_dao.to_save(new_user)
+    new_user = user_dao.to_save(new_user)
+
+    file = request.files['file']
+    upload_path = app.config['UPLOAD_PATH']
+    file.save(f'{upload_path}/images/capa{new_user.id}.jpg')
     return redirect(url_for('index'))
+
+
+@app.route('/medias/images/<file_name>')
+def image(file_name):
+    return send_from_directory('medias/images', file_name)
 
 
 @app.route('/login')

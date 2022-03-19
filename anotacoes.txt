@@ -1,3 +1,10 @@
 01-03-2022  18:00
 
     Ler documentação sobre flash messages
+
+19-03-2022 11:34
+
+    Aplicar funcionalidades com Javascript
+    Fazer tratamentos erro
+
+

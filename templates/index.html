@@ -12,29 +12,14 @@
     <section>
         <p>Jogadores Cadastrados</p>
         
-        <table class="table" >
-            <thead class="thead-dark" >
-                <tr>
-                    <th>Nome</th>
-                    <th>email</th>
-                    <th>telefone</th>
-                    <th>Ações</th>
-                </tr>
-            </thead>
-            <tbody>
+            <ul>
                 {% for player in users %}
-                    <tr>
-                        <td>{{player.name}}</td>
-                        <td>{{player.email}}</td>
-                        <td>{{player.cell}}</td>
-                        <td><a href="{{url_for('update_user', id_user=player.id)}}">editar</a>
-                            <a href="{{url_for('delete_user', id_user=player.id)}}">deleter</a></td>
-                    </tr>
-                
+                    
+                    <li>{{player.name}}</li>
+
                 {% endfor %}
-            </tbody>    
-        </table>
-            
+
+            </ul>
     </section>
 
     <section>

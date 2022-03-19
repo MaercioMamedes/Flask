@@ -5,8 +5,17 @@
       <div class="page-header">
           <h1>{{ title }}</h1>
       </div>
-      <form method="post" action="{{url_for('register_update_user', id_user=user.id)}}">
+      <form method="post" enctype="multipart/form-data" action="{{url_for('register_update_user', id_user=user.id)}}">
         <fieldset>
+
+          <figure>
+            <img src="{{url_for('image', file_name=image_profile)}}" alt="" srcset="">
+            <figcaption>
+              <label>
+                <input type="file" name="file" accept=".jpg">
+              </label>
+            </figcaption>
+          </figure>
 
           <div class="form-group">
             <label for="name">Nome</label>
