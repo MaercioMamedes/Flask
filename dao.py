@@ -11,13 +11,15 @@ def portfolio_format(list_portfolio):
 def user_list_format(list_user):
 
     def create_user_with_tuple(tuple_object):
-        return User(tuple_object[1], tuple_object[2], tuple_object[3], tuple_object[4], id_user=tuple_object[0])
+        return User(tuple_object[1], tuple_object[2], tuple_object[3], tuple_object[4], tuple_object[5],
+                    tuple_object[6], id_user=tuple_object[0])
 
     return list(map(create_user_with_tuple, list_user))
 
 
 def users_format(tuple_object):
-    return User(tuple_object[1], tuple_object[2], tuple_object[3], tuple_object[4], id_user=tuple_object[0])
+    return User(tuple_object[1], tuple_object[2], tuple_object[3], tuple_object[4], tuple_object[5],
+                tuple_object[6], id_user=tuple_object[0])
 
 
 class PortfolioDao:
@@ -61,8 +63,10 @@ class UserDao:
 
     def __init__(self, data_base):
         self.__db = data_base
-        self.__SQL_CREATE_USER = """INSERT INTO `GameDataBase`.`User` (`name`, `email`, `cell`, `hash`) 
-                                    VALUES (%s, %s, %s, %s)"""
+        self.__SQL_CREATE_USER = """INSERT INTO `GameDataBase`.
+                                `User` (`name`, `email`, `cell`, `hash`, `created`,`updated`)                           
+                                 VALUES (%s, %s, %s, %s, %s, %s)"""
+
         self.__SQL_UPDATE_USER = """UPDATE `GameDataBase`.`User` SET `name` = %s, `email` = %s, `cell` = %s, `hash` = %s 
                                     WHERE (`id` = %s)"""
         self.__SQL_USER_FOR_ID = 'SELECT * from `GameDataBase`.`User` where id = %s'
@@ -80,9 +84,11 @@ class UserDao:
     def to_save(self, user):
         cursor = self.__db.connection.cursor()
         if user.id:
-            cursor.execute(self.__SQL_UPDATE_USER, (user.name, user.email, user.cell, user.hash, user.id))
+            cursor.execute(self.__SQL_UPDATE_USER, (user.name, user.email, user.cell,
+                                                    user.hash, user.created, user.updated, user.id))
         else:
-            cursor.execute(self.__SQL_CREATE_USER, (user.name, user.email, user.cell, user.hash))
+            cursor.execute(self.__SQL_CREATE_USER, (user.name, user.email, user.cell,
+                                                    user.hash, user.created, user.updated))
             user.id = cursor.lastrowid
         self.__db.connection.commit()
         return user

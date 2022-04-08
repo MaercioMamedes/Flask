@@ -2,12 +2,14 @@
 
 
 class User:
-    def __init__(self, name, email, cell, hash_user, id_user=None):
+    def __init__(self, name, email, cell, hash_user, created, updated, id_user=None):
         self._id = id_user
         self._name = name
         self._email = email
         self._cell = cell
         self._hash = hash_user
+        self._created = created
+        self._updated = updated
 
     @property
     def id(self):
@@ -28,6 +30,14 @@ class User:
     @property
     def hash(self):
         return self._hash
+
+    @property
+    def created(self):
+        return self._created
+
+    @property
+    def updated(self):
+        return self._updated
 
     @id.setter
     def id(self, id_user):

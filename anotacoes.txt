@@ -7,4 +7,6 @@
     Aplicar funcionalidades com Javascript
     Fazer tratamentos erro
 
+08-04-2022 16:06
 
+    Testar se yfinace é compatível com Flask

@@ -1,8 +1,10 @@
-from dao import *
+from dao import PortfolioDao, UserDao
 from main import db, app
 from time import time
 from helpers import *
+import datetime
 
+from model.models import User
 
 portfolio_dao = PortfolioDao(db)
 user_dao = UserDao(db)
@@ -11,7 +13,10 @@ user_dao = UserDao(db)
 @app.route('/')
 def index():
     users_list = user_dao.to_list()
-    return render_template('index.html', title='Jogo da Bolsa', title_page='Jogo da Bolsa', users=users_list)
+    print(session['user_logged'])
+    return render_template('index.html', title='Jogo da Bolsa', title_page='Jogo da Bolsa',
+                           user_logged=session['user_logged'],
+                           users=users_list)
 
 
 @app.route('/adm')
@@ -24,7 +29,9 @@ def adm():
 def portfolio():
     if 'user_logged' not in session or session['user_logged'] is None:
         return redirect('/login?proxima=portfolio')
-    return render_template('portfolio.html', title='Cadastro de Ativos', title_page='Portfólio')
+    return render_template('portfolio.html', title='Cadastro de Ativos',
+                           user_logged=session['user_logged'],
+                           title_page='Portfólio')
 
 
 @app.route('/portfolio-register', methods=['POST', ])
@@ -71,7 +78,7 @@ def register_update_user(id_user):
 
     file = request.files['file']
     upload_path = app.config['UPLOAD_PATH']
-    timestamp = time.time()
+    timestamp = time()
     delete_file(new_user.id)
     file.save(f'{upload_path}/images/thumb{new_user.id}-{timestamp}.jpg')
     return redirect(url_for('index'))
@@ -83,12 +90,17 @@ def user():
     user_email = request.form['email']
     user_cell = request.form['cell']
     user_hash = request.form['hash_user']
-    new_user = User(user_name, user_email, user_cell, user_hash)
+    user_created = datetime.datetime.now()
+    user_updated = user_created
+    if "" in request.form.values():
+        flash('VALORES INVÁLIDOS')
+        return redirect(url_for('register_user'))
+    new_user = User(user_name, user_email, user_cell, user_hash, user_created, user_updated)
     new_user = user_dao.to_save(new_user)
 
     file = request.files['file']
     upload_path = app.config['UPLOAD_PATH']
-    timestamp = time.time()
+    timestamp = time()
     file.save(f'{upload_path}/images/thumb{new_user.id}-{timestamp}.jpg')
     return redirect(url_for('index'))
 
@@ -114,7 +126,6 @@ def auth():
         session['user_logged'] = request.form['user']
         flash(request.form['user'] + ' logou com sucesso!')
         proxima_pagina = request.form['proxima']
-        print(f'{proxima_pagina}')
         return redirect(f'/{proxima_pagina}')
 
     else:
