@@ -98,6 +98,11 @@ figcaption {
     top: 0;
 }
 
+#cod-ticker{
+    width: 30%;
+    margin: 20px 0 20px 0;
+}
+
 td {
     text-align: center;
 }

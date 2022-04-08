@@ -9,10 +9,31 @@
     <form method="post" action="{{url_for('portfolio_register')}}">
       <fieldset>
         <div class="form-group">
-          <label for="nome">Nome da Carteira</label>
-          <input type="text" id="nome" name="nome" class="form-control">
+          <label for="cod-ticker">DIGITE O CÓDIGO DO ATIVO</label>
+          <input  type="text" id="cod-ticker" name="nome" class="form-control">
+          <button type="submit" class="btn btn-primary btn-salvar">adicionar papel</button>
         </div>
-        <button type="submit" class="btn btn-primary btn-salvar">Salvar</button>
+
+        <div>
+          <table>
+            <thead>
+              <tr>
+                <th>CÓDIGO</th>
+                <th>NOME</th>
+                <th>COTAÇÃO</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>TESTE1</td>
+                <td>TESTE2</td>
+                <td>TESTE3</td>
+              </tr>
+            </tbody>
+
+          </table>
+        </div>
+        
       </fieldset>
     </form>
   </div>
