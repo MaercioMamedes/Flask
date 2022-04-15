@@ -3,7 +3,7 @@ from main import db, app
 from time import time
 from helpers import *
 import datetime
-
+import yfinance as yf
 from model.models import User
 
 portfolio_dao = PortfolioDao(db)
@@ -12,11 +12,26 @@ user_dao = UserDao(db)
 
 @app.route('/')
 def index():
+    user_on = 'Ususário não logado' if 'user_logged' not in session else session['user_logged']
     users_list = user_dao.to_list()
-    print(session['user_logged'])
     return render_template('index.html', title='Jogo da Bolsa', title_page='Jogo da Bolsa',
-                           user_logged=session['user_logged'],
+                           user_logged=user_on,
                            users=users_list)
+
+
+@app.route('/cockpit')
+def cockpit():
+    if 'user_logged' not in session or session['user_logged'] is None:
+        return redirect('/login?proxima=cockpit')
+
+    else:
+        return render_template('cockpit.html', user_logged=session['user_logged'], title='Cockpoit do Trader',
+                               title_page='Cockpit')
+
+
+@app.route('/add-ticker', methods=['POST'])
+def add_ticker():
+    return "teste"
 
 
 @app.route('/adm')
@@ -29,6 +44,7 @@ def adm():
 def portfolio():
     if 'user_logged' not in session or session['user_logged'] is None:
         return redirect('/login?proxima=portfolio')
+
     return render_template('portfolio.html', title='Cadastro de Ativos',
                            user_logged=session['user_logged'],
                            title_page='Portfólio')
@@ -36,7 +52,10 @@ def portfolio():
 
 @app.route('/portfolio-register', methods=['POST', ])
 def portfolio_register():
-    print('salvou')
+    asset = request.form['asset']
+    ticker = asset.upper() + '.SA'
+    b3 = yf.download(ticker, period='1mo', auto_adjust=True)
+    print(b3['Close'])
     return redirect(url_for('index'))
 
 

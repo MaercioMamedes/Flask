@@ -5,26 +5,19 @@
     {% block content%}
 
     <section>
-        <p><a href="/portfolio"> Monte sua carteira</a></p>
-
-    </section>
-
-    <section>
-        <p>Jogadores Cadastrados</p>
+        <h1 class="title-card" >Classifação dos Trades Gamers</h1>
         
-            <ul>
-                {% for player in users %}
-                    
-                    <li>{{player.name}}</li>
-
-                {% endfor %}
-
-            </ul>
     </section>
 
     <section>
-       <p>Papeis mais valorizados</p>
+       <h1 class="title-card" >Papeis mais valorizados</h1>
     </section>
+
+    <a href="{{url_for('cockpit')}}">
+        <section>
+            <h1 class="title-card" >Cockpit do Trader</h1>
+        </section>
+    </a> 
 
     {% endblock %}
 

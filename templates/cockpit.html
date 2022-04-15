@@ -1,0 +1,62 @@
+{% extends 'template.html' %}
+
+{% block content %}
+
+<h1>Painel de Controle</h1>
+
+<div class="add-ticker" >
+
+    <form action="{{url_for('add_ticker')}}" method="post">
+
+        <label for="ticker">Digite o código do Ativo</label>
+        <input class="form-control" type="text" id="ticker">
+
+        <button type="submit" id="btn-ticker" class="btn btn-primary" >Adicionar Papel</button>
+    </form>
+
+</div>
+
+<div class="wallet">
+
+    <table class="table table-hover">
+
+        <thead>
+            <tr>
+                <th>Código do Papel</th>
+                <th>Nome da Empresa</th>
+                <th>Retabilidade</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>codigo</td>
+                <td>nome</td>
+                <td>percentual</td>
+            </tr>
+            <tr>
+                <td>codigo</td>
+                <td>nome</td>
+                <td>percentual</td>
+            </tr>
+            <tr>
+                <td>codigo</td>
+                <td>nome</td>
+                <td>percentual</td>
+            </tr>
+            <tr>
+                <td>codigo</td>
+                <td>nome</td>
+                <td>percentual</td>
+            </tr>
+            <tr>
+                <td>codigo</td>
+                <td>nome</td>
+                <td>percentual</td>
+            </tr>
+        </tbody>
+
+    </table>
+
+</div>
+
+{% endblock %}
