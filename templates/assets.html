@@ -1,0 +1,23 @@
+{% extends 'template.html' %}
+
+{% block content %} 
+
+<table>
+    <thead>
+        <tr>
+            <th>CHAVE</th>
+            <th>VALOR</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for element in set_element %}
+            <tr>
+                <td>{{ element[0] }}</td>
+                <td>{{ element[1] }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+
+{% endblock %}

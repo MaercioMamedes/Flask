@@ -55,7 +55,7 @@ main{
 
 section{
     width: 20%;
-    height: 200px;
+    height: 300px;
     max-width: 600px;
     vertical-align: top;
     display: inline-block;
@@ -66,6 +66,16 @@ section{
     box-shadow: 0px 0px 10px black;
     margin: 30px 1.5% 20px 1.5%;
     padding: 30px;
+    
+}
+
+
+figure img{
+    width: 100%;
+}
+
+section h1{
+    margin: 5px auto 5px auto;
 }
 
 section:hover{
@@ -156,6 +166,12 @@ footer{
         display: block;
         width: 60%;
         margin: 5% auto 5% auto;
+    }
+
+    .menu li{
+        font-weight: bold;
+        display: block;
+        padding: 5px;
     }
 
 }

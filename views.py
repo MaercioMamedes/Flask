@@ -19,6 +19,24 @@ def index():
                            users=users_list)
 
 
+@app.route('/ranking')
+def ranking_traders():
+    return render_template('ranking.html', title='Classificação', title_page='Traders')
+
+
+@app.route('/assets')
+def assets():
+    papel = yf.Ticker('MGLU3.SA')
+    dados = papel.info
+    chaves = list(dados.keys())
+    valores = list(dados.values())
+
+    lista = [[chaves[x], valores[x]] for x in range(len(chaves))]
+    return render_template('assets.html', title='Ativos',
+                           set_element=lista,
+                           title_page='Ativos no Jogo')
+
+
 @app.route('/cockpit')
 def cockpit():
     if 'user_logged' not in session or session['user_logged'] is None:
@@ -31,7 +49,11 @@ def cockpit():
 
 @app.route('/add-ticker', methods=['POST'])
 def add_ticker():
-    return "teste"
+    ticker = request.form['ticker']
+    repository.download_b3(ticker.upper() + '.SA')
+    lista = repository.list_asset
+    return render_template('cockpit.html', user_logged=session['user_logged'], title='Cockpit do Trader',
+                           title_page='Cockpit', list_assets=lista)
 
 
 @app.route('/adm')

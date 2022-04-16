@@ -1,23 +1,33 @@
-
 {% extends "template.html" %}
 <main>
-        
+
     {% block content%}
 
-    <section>
-        <h1 class="title-card" >Classifação dos Trades Gamers</h1>
-        
-    </section>
+    <a href="{{url_for('ranking_traders')}}">
+        <section id="ranking">
+            <h1 class="title-card">Classifação dos Trades Gamers</h1>
+            <figure>
+                <img src="https://entrecontos.files.wordpress.com/2016/08/website-ranking.png" alt="" srcset="">
+            </figure>
+        </section>
+    </a>
 
-    <section>
-       <h1 class="title-card" >Papeis mais valorizados</h1>
-    </section>
+    <a href="{{url_for('assets')}}">
+        <section id="assets" >
+            <h1 class="title-card">Papeis mais valorizados</h1>
+            <figure>
+                <img src="https://i0.wp.com/www.telesintese.com.br/wp-content/uploads/2021/01/grafico-acao-bolsa-geral.jpg?ssl=1" alt="" srcset="">
+            </figure>
+        </section>
+    </a>
 
     <a href="{{url_for('cockpit')}}">
-        <section>
-            <h1 class="title-card" >Cockpit do Trader</h1>
+        <section id="cockpit">
+            <h1 class="title-card">Cockpit do Trader</h1><br>
+            <figure>
+                <img src="https://top5traders.com.br/wp-content/uploads/2017/11/Trading-Desk.png" alt="" srcset="">
+            </figure>
         </section>
-    </a> 
+    </a>
 
     {% endblock %}
-

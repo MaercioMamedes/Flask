@@ -9,7 +9,7 @@
     <form action="{{url_for('add_ticker')}}" method="post">
 
         <label for="ticker">Digite o código do Ativo</label>
-        <input class="form-control" type="text" id="ticker">
+        <input class="form-control" type="text" id="ticker" name="ticker">
 
         <button type="submit" id="btn-ticker" class="btn btn-primary" >Adicionar Papel</button>
     </form>
@@ -24,35 +24,19 @@
             <tr>
                 <th>Código do Papel</th>
                 <th>Nome da Empresa</th>
-                <th>Retabilidade</th>
+                <th>Rentabilidade</th>
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>codigo</td>
-                <td>nome</td>
-                <td>percentual</td>
-            </tr>
-            <tr>
-                <td>codigo</td>
-                <td>nome</td>
-                <td>percentual</td>
-            </tr>
-            <tr>
-                <td>codigo</td>
-                <td>nome</td>
-                <td>percentual</td>
-            </tr>
-            <tr>
-                <td>codigo</td>
-                <td>nome</td>
-                <td>percentual</td>
-            </tr>
-            <tr>
-                <td>codigo</td>
-                <td>nome</td>
-                <td>percentual</td>
-            </tr>
+        {% if list_assets %}
+            {% for element in list_assets %}
+                <tr>
+                    <td>{{ element.ticker }}</td>
+                    <td>{{ element.long_name }}</td>
+                    <td>{{ element.profit }}</td>
+                </tr>
+            {% endfor %}
+        {% endif %}
         </tbody>
 
     </table>
