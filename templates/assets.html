@@ -1,5 +1,7 @@
 {% extends 'template.html' %}
 
+
+
 {% block content %} 
 
 <table>
@@ -9,15 +11,38 @@
             <th>VALOR</th>
         </tr>
     </thead>
+        <tr id="linha1">
+
+        </tr>
     <tbody>
-        {% for element in set_element %}
-            <tr>
-                <td>{{ element[0] }}</td>
-                <td>{{ element[1] }}</td>
-            </tr>
-        {% endfor %}
+        
     </tbody>
 </table>
 
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+    const content = fetch("{{ url_for('api') }}").
+        then((response) => {
+            return response.json()
+
+        }).
+        then((data) => {
+            var linha = document.getElementById("#linha1")
+            var dado = document.createElement("td")
+            dado.id = 'dado1'
+            dado.innerText = data.PETR4
+            linha.appendChild(dado)
+
+
+
+            
+        });
+
+        
+
+</script>
 
 {% endblock %}

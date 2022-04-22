@@ -35,12 +35,12 @@ class Asset:
     @staticmethod
     def add_name_asset(ticker):
         new_name = yf.Ticker(ticker).info['longName']
-        write_csv(ticker, new_name)
+        write_database(ticker, new_name)
         return new_name
     """ data b3 precisa ser 'Close' """
     def __init__(self, ticker, data_b3):
         self._ticker = ticker
-        self._long_name = read_csv(ticker[:-3]) if ticker[:-3] in read_csv() else self.add_name_asset(ticker)
+        self._long_name = read_database(ticker[:-3]) if ticker[:-3] in read_database() else self.add_name_asset(ticker)
         self._price_today = {}
         self._price_back = {}
         self._profit = 0

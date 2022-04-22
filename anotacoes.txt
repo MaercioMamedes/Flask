@@ -14,3 +14,12 @@
 16-04-2022 17:13
 
     Verificar como comparar uma string com objeto
+
+22-04-2022 08:40
+
+    Implementar dados essenciais dos ativos (classe Asset) persistidos no banco de dados, para evitar request frenquentes
+    à API yfinance.
+
+    implentat classe repositórios em forma de dicionário
+
+    Vê a possibilidade de usar um banco de dados NoSQL
