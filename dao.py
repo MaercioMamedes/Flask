@@ -102,9 +102,24 @@ class UserDao:
     def to_auth(self, user, password):
         cursor = self.__db.connection.cursor()
         cursor.execute(self.__SQL_USER_AUTH, (user, password))
-        user = users_format(cursor.fetchone())
-        return user
+
+        try:
+            user = users_format(cursor.fetchone())
+
+        except TypeError:
+            print("senha ou usuários errados")
+
+        else:
+            return user
 
     def to_delete(self, id_user):
         self.__db.connection.cursor().execute(self.__SQL_DELETE_USER, (id_user,))
         self.__db.connection.commit()
+
+
+class AssetDao:
+    def __init__(self, data_base):
+        self._data_base = data_base
+        self._SQL_CREATE_ASSET = """INSERT INTO `GameDataBase`.`Asset`
+                                 (`ticker`, `name_company`, `price_current`, `price_back`, `profit`) "
+                                 VALUES ('%s', '%s', '%s', '%s', '%s');"""

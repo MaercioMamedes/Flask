@@ -12,16 +12,16 @@ user_dao = UserDao(db)
 
 @app.route('/')
 def index():
-    user_on = 'Ususário não logado' if 'user_logged' not in session else session['user_logged']
     users_list = user_dao.to_list()
     return render_template('index.html', title='Jogo da Bolsa', title_page='Jogo da Bolsa',
-                           user_logged=user_on,
+                           user_logged=verify_user_logged(),
                            users=users_list)
 
 
 @app.route('/ranking')
 def ranking_traders():
-    return render_template('ranking.html', title='Classificação', title_page='Traders')
+    return render_template('ranking.html', title='Classificação', title_page='Traders',
+                           user_logged=verify_user_logged())
 
 
 @app.route('/assets')
@@ -33,18 +33,18 @@ def assets():
 
     lista = [[chaves[x], valores[x]] for x in range(len(chaves))]
     return render_template('assets.html', title='Ativos',
+                           user_logged=verify_user_logged(),
                            set_element=lista,
                            title_page='Ativos no Jogo')
 
 
 @app.route('/cockpit')
 def cockpit():
-    if 'user_logged' not in session or session['user_logged'] is None:
-        return redirect('/login?proxima=cockpit')
-
-    else:
-        return render_template('cockpit.html', user_logged=session['user_logged'], title='Cockpoit do Trader',
+    if verify_user_logged():
+        return render_template('cockpit.html', user_logged=verify_user_logged(), title='Cockpoit do Trader',
                                title_page='Cockpit')
+    else:
+        return redirect('/login?next-page=cockpit')
 
 
 @app.route('/add-ticker', methods=['POST'])
@@ -58,14 +58,18 @@ def add_ticker():
 
 @app.route('/adm')
 def adm():
+    if 'user_logged' not in session or session['user_logged'] is None:
+        return redirect('/login?next-page=adm')
     users_list = user_dao.to_list()
-    return render_template('adm.html', title='Jogo da Bolsa', title_page='Jogo da Bolsa', users=users_list)
+    return render_template('adm.html', title='Jogo da Bolsa', title_page='Jogo da Bolsa',
+                           user_logged=session['user_logged'],
+                           users=users_list)
 
 
 @app.route('/portfolio')
 def portfolio():
     if 'user_logged' not in session or session['user_logged'] is None:
-        return redirect('/login?proxima=portfolio')
+        return redirect('/login?next=portfolio')
 
     return render_template('portfolio.html', title='Cadastro de Ativos',
                            user_logged=session['user_logged'],
@@ -83,8 +87,6 @@ def portfolio_register():
 
 @app.route('/register')
 def register_user():
-    if 'user_logged' not in session or session['user_logged'] is None:
-        return redirect('/login?proxima=register')
     return render_template('registerUser.html', title_page='Cadastro de usuário', title='Cadastro')
 
 
@@ -153,8 +155,8 @@ def image(file_name):
 
 @app.route('/login')
 def login():
-    proxima = request.args.get('proxima')
-    return render_template('login.html', title_page='Login de Usuário', title='Login', proxima=proxima)
+    next_page = request.args.get('next-page')
+    return render_template('login.html', title_page='Login de Usuário', title='Login', next=next_page)
 
 
 @app.route('/auth', methods=['POST', ])
@@ -165,17 +167,25 @@ def auth():
 
     if users_list:
         session['user_logged'] = request.form['user']
-        flash(request.form['user'] + ' logou com sucesso!')
-        proxima_pagina = request.form['proxima']
-        return redirect(f'/{proxima_pagina}')
+        flash(request.form['user'] + ' logou com sucesso!', 'alert alert-success' )
+        next_page = request.form['next']
+        return redirect(f'/{next_page}')
 
     else:
-        flash('Não logado, tente novamente!')
+        flash('Não logado, tente novamente!', 'alert alert-danger')
         return redirect(url_for('login'))
 
 
 @app.route('/logout')
 def logout():
     session['user_logged'] = None
-    flash('Nenhum usuário logado!')
+    flash('Nenhum usuário logado!', 'alert alert-primary')
     return redirect(url_for('index'))
+
+
+def verify_user_logged():
+    if 'user_logged' in session and session['user_logged'] is not None:
+        return session['user_logged']
+
+    else:
+        return False

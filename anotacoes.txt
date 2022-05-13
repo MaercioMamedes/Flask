@@ -23,3 +23,7 @@
     implentat classe repositórios em forma de dicionário
 
     Vê a possibilidade de usar um banco de dados NoSQL
+
+29-04-2022 18:05
+
+    Implementar campo adm à classe User
