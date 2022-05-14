@@ -1,6 +1,6 @@
 01-03-2022  18:00
 
-    Ler documentação sobre flash messages
+    Ler documentação sobre flash messages  ********* OK **********
 
 19-03-2022 11:34
 
@@ -9,7 +9,7 @@
 
 08-04-2022 16:06
 
-    Testar se yfinace é compatível com Flask - ok
+    Testar se yfinace é compatível com Flask - ********* OK **********
 
 16-04-2022 17:13
 

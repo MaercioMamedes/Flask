@@ -1,13 +1,6 @@
-from dao import PortfolioDao, UserDao
-from main import db, app
-from time import time
-from helpers import *
-import datetime
-import yfinance as yf
-from model.models import User
+import os.path
 
-portfolio_dao = PortfolioDao(db)
-user_dao = UserDao(db)
+from main import *
 
 
 @app.route('/')
@@ -150,7 +143,8 @@ def user():
 
 @app.route('/medias/images/<file_name>')
 def image(file_name):
-    return send_from_directory('medias/images', file_name)
+
+    return send_from_directory(os.path.abspath(file_name), file_name)
 
 
 @app.route('/login')
