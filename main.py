@@ -1,5 +1,4 @@
-from helpers import *
-from flask import *
+from flask import Flask
 from model.models import *
 from flask_mysqldb import *
 from model.b3 import *
@@ -13,7 +12,10 @@ portfolio_dao = PortfolioDao(db)
 user_dao = UserDao(db)
 repository = Repository()
 
-from views import *
+from views.viewTemplate import *
+from views.viewHome import *
+from views.viewUserRegister import *
+from views.viewPorfolio import *
 
 
 if __name__ == "__main__":

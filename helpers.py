@@ -1,5 +1,6 @@
+from flask import session
 import os
-from main import *
+from main import app
 
 
 def recovery_image(id_user):
@@ -18,3 +19,11 @@ def delete_file(id_user):
             return False
         else:
             os.remove(os.path.join(f'{upload_path}/images', file))
+
+
+def verify_user_logged():
+    if 'user_logged' in session and session['user_logged'] is not None:
+        return session['user_logged']
+
+    else:
+        return False
